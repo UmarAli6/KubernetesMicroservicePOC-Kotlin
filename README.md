@@ -9,8 +9,13 @@ form of Helm Charts. Development was done in CentOS and used Oracle
 DB as the database. Weekly sprints using Scrum framework, JIRA for
 planning and tracking and Git for version control.
 
-## How shall G&D Reuse the outcome of KTH project
+## How G&D shall reuse the outcome of KTH project
 G&D shall get the Docker image produced by KTH
 G&D shall receive the Kubernetes deployment and Service definition files
 G&D shall receive the Database connectivity model used by KTH
 G&D shall receive the packaging structure created by KTH (In the form of helm charts) , so that it can be deployed in G&D 's Kubernetes cluster
+
+### Old Architecture
+![Old](https://user-images.githubusercontent.com/62612527/156083468-2635d730-9a14-46b0-9b6d-cfada8ab06ce.png)
+### New Architecture
+![New](https://user-images.githubusercontent.com/62612527/156083355-bf6e3071-2d30-4d46-b83b-6d041b35064e.png)
