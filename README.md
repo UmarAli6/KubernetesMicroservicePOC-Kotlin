@@ -9,8 +9,6 @@ form of Helm Charts. Development was done in CentOS and used Oracle
 DB as the database. Weekly sprints using Scrum framework, JIRA for
 planning and tracking and Git for version control.
 
-Below is how G&D will use the POC.
-
 ## How shall G&D Reuse the outcome of KTH project
 G&D shall get the Docker image produced by KTH
 G&D shall receive the Kubernetes deployment and Service definition files
