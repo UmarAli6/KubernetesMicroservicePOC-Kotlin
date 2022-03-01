@@ -1,0 +1,5 @@
+docker run -e JAVA_OPTS="-Xmx1200m" -it -p 8080:8080 my-app
+docker run -p 8080:8080 my-app
+docker build -t my-app .
+
+kubectl create secret docker-registry my-docker-secret --docker-server=https://index.docker.io/v1/ --docker-username=username --docker-password=password --docker-email=not-needed@example.com

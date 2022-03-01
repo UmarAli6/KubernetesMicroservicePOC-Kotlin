@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - yourdomain.com
+      secretName: my-tls-secret
+  rules:
+    - host: yourdomain.com
+    - http:
+        paths:
+          - path: /api/v1/businessconfig/transport
+            backend:
+              serviceName: microservice-service
+              servicePort: 8080
+          - path: /api/v1/businessconfig/smsc
+            backend:
+              serviceName: microservice-service
+              servicePort: 8080
+          - path: /api/v1/businessconfig/trace
+            backend:
+              serviceName: microservice-service
+              servicePort: 8080
+          - path: /api/v1/businessconfig/cardowners
+            backend:
+              serviceName: microservice-service
+              servicePort: 8080

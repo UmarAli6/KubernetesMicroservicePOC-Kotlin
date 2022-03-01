@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-deployment
+  labels:
+    app: microservice-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microservice-app
+  template:
+    metadata:
+      labels:
+        app: microservice-app
+    spec:
+      containers:
+        - name: microservice-app
+          image: gdkth/kth:latest
+          env:
+            - name: DB_DRIVER
+              value: "oracle.jdbc.driver.OracleDriver"
+            - name: DB_CONN_URL
+              value: "jdbc:oracle:thin:@89.46.81.228:1521/XEPDB1"
+            - name: DB_USERNAME
+              value: "SYSTEM"
+            - name: DB_PASSWORD
+              value: "root"
+            - name: LOGLEVEL
+              value: "DEBUG"
+            - name: JAVA_OPTS
+              value: "-Xmx1200m"
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: my-docker-secret

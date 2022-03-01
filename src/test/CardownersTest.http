@@ -1,0 +1,19 @@
+PUT http://localhost:8080/api/v1/businessconfig/cardowners
+Content-Type: application/json
+
+{
+  "user": "Alex",
+  "newValue": {
+    "owners": [
+      {
+        "iccidList": [],
+        "tenant": "alice"
+      }
+    ]
+  },
+  "changeComment": "Comment that describes what has changed"
+}
+
+###
+GET http://localhost:8080/api/v1/businessconfig/cardowners
+Accept: application/json

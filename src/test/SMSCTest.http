@@ -1,0 +1,121 @@
+PUT http://127.0.0.1:8080/api/v1/businessconfig/smsc
+Content-Type: application/json
+
+{
+  "user": "Paul",
+  "newValue": {
+    "modificationDate" : "hello",
+    "routeOn": "MSISDN",
+    "groups": {
+      "test-group": {
+        "routes": [
+          {
+            "pattern": "range",
+            "value": "1234..5678"
+          },
+          {
+            "pattern": "regex",
+            "value": "^999"
+          }
+        ],
+        "priority": 0,
+        "binds": [
+          {
+            "name": "awesome-bind",
+            "systemId": "csn",
+            "password": "myPass",
+            "windowSize": 100,
+            "type": "transceiver",
+            "systemType": "ota",
+            "countryCode": 45,
+            "destinationNumberFormat": {
+              "ton": 2,
+              "npi": 1
+            },
+            "source": {
+              "address": "557624804487",
+              "ton": 1,
+              "npi": 1
+            },
+            "address": {
+              "port": 2775,
+              "address": "firstsmsc"
+            }
+          },
+          {
+            "name": "awesome-bind-2",
+            "systemId": "csn",
+            "password": "myPass",
+            "windowSize": 100,
+            "type": "transceiver",
+            "systemType": "ota",
+            "countryCode": 45,
+            "source": {
+              "address": "557624804487",
+              "ton": 1,
+              "npi": 1
+            },
+            "address": {
+              "port": 2775,
+              "address": "secondsmsc"
+            }
+          }
+        ]
+      },
+      "default-group": {
+        "routes": [
+          {
+            "pattern": "range",
+            "value": "888..999"
+          }
+        ],
+        "priority": 1,
+        "default": true,
+        "binds": [
+          {
+            "name": "mediocre-bind",
+            "systemId": "csn",
+            "password": "myPass",
+            "windowSize": 100,
+            "type": "transceiver",
+            "systemType": "ota",
+            "countryCode": 45,
+            "source": {
+              "address": "557624804487",
+              "ton": 1,
+              "npi": 1
+            },
+            "address": {
+              "port": 2775,
+              "address": "thirdsmsc"
+            }
+          }
+        ]
+      }
+    },
+    "receivers": [
+      {
+        "name": "im-just-receiving",
+        "systemId": "csn",
+        "password": "myPass",
+        "type": "receiver",
+        "systemType": "ota",
+        "countryCode": 45,
+        "source": {
+          "address": "557624804487",
+          "ton": 1,
+          "npi": 1
+        },
+        "address": {
+          "port": 2775,
+          "address": "fourthsmsc"
+        }
+      }
+    ]
+  },
+  "changeComment": "Comment that describes what has changed"
+}
+
+###
+GET http://127.0.0.1:8080/api/v1/businessconfig/smsc
+Accept: application/json

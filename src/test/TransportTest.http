@@ -1,0 +1,168 @@
+//1. Original PUT method. We expect to receive a HTTP 200 OK message from server
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Alex",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": true,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": [
+        "Mobile",
+        "415-555-1234"
+      ]
+    }
+  }
+}
+
+###
+//2. PUT method with changeComment. We expect to receive a HTTP 200 OK message from server
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Shifat",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": true,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+###
+//3. Testing if we put smHttpTrigEnabled false, we expect that server should not show smHttpTrigValidityDuration when we request data.
+//   We expect to receive a HTTP 200 OK message from server
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Emil",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": false,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+###
+//4. Testing if we put illegal value in jobValidityDuration. We expect to receive a HTTP 400 Bad Request message from server.
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Jakob",
+  "newValue"  : {
+    "jobValidityDuration"   : "hello",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": false,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  }
+}
+
+###
+//5. Testing if we put some value in modificationDate. We expect to receive a HTTP 400 Bad Request message from server.
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Rabi",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "modificationDate" : "hello",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": true,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+###
+//6. Testing putting malformed/corrupt value in JSON data. We expect to receive a HTTP 400 Bad Request message from server.
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Umar",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "test_value" : "Hi",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": true,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+###
+//7. Testing if we remove some crucial values. In this case we removed jobValidityDuration.
+//   We expect to receive a HTTP 400 Bad Request message from server.
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Armin",
+  "newValue"  : {
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": true,
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+
+###
+//8. Testing if we add some diffrent type of invalid formats in smHttpTrigEnabled. In this case we added a string value instead a boolean value.
+//   We expect to receive a HTTP 400 Bad Request message from server.
+###
+PUT http://localhost:8080/api/v1/businessconfig/transport
+Content-Type: application/json
+
+{
+  "user"  : "Administrator",
+  "newValue"  : {
+    "jobValidityDuration"   : "P5D",
+    "sms"   : {"smOtaValidityDuration": "PT6H"},
+    "httpOta"   : {
+      "smHttpTrigEnabled": "Hello Again",
+      "smHttpTrigValidityDuration": "PT6H",
+      "smHttpTrigBlacklistedCardProfiles": []
+    }
+  },
+  "changeComment": "Changed jobValidity Duration to P6D from P5D."
+}
+
+###
+GET http://localhost:8080/api/v1/businessconfig/transport
+Accept: application/json
